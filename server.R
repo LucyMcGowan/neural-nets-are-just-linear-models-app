@@ -17,18 +17,10 @@ function(input, output, session) {
     render_graph(graph)
   })
   
-  # output$eq2 <- renderUI({
-  #   b <- dataset2[dataset2$epoch == as.numeric(input$i2),][1, ] |> round(2)
-  #   withMathJax(glue::glue("$$\\hat{y}=?b$beta0| ?ifelse(b$beta1<0, '','+')|  ?b$beta1|\\times \\max\\{0,?b$b21|?ifelse(b$w211<0, '','+')|?b$w211|\\times\\max\\{0, ?b$b11|\\\\?ifelse(b$w11<0, '','+')|?b$w11|x\\}?ifelse(b$w212<0, '','+')|?b$w212|\\times\\max\\{0,?b$b12|?ifelse(b$w12<0, '','+')|?b$w12|x\\}\\} ?ifelse(b$beta2<0, '','+')| \\\\ ?b$beta2|\\times \\max\\{0,?b$b22|?ifelse(b$w221<0, '','+')|?b$w221|\\times\\max\\{0, ?b$b11|\\\\?ifelse(b$w11<0, '','+')|?b$w11|x\\}?ifelse(b$w222<0, '','+')|?b$w222|\\times\\max\\{0,?b$b12|?ifelse(b$w12<0, '','+')|?b$w12|x\\}\\}$$",
-  #                          .open = "?", .close = "|"))
-  # })
   output$diag <- renderGrViz({
     render_graph(graph)
   })
   
-  # output$diag2 <- renderGrViz({
-  #   render_graph(graph2)
-  # })
   output$plot <- renderPlotly({
     plot_ly(d(), x = ~ x) %>%
       add_markers(
@@ -81,20 +73,6 @@ function(input, output, session) {
              showlegend = FALSE)
   })
   
-  # output$plot2 <- renderPlot({
-  #   d <- dataset2[dataset2$epoch == as.numeric(input$i2),]
-  #
-  #   ggplot(d, aes(x = x, y = y), size = 2) +
-  #     geom_point(color = "grey", size = 2) +
-  #     geom_line(col = 1, aes(y = beta0), lty = 2) +
-  #     geom_line(col = 2, aes(y = y21), lty = 2) +
-  #     geom_line(col = 3, aes(y = y22), lty = 2) +
-  #     geom_line(col = "cornflower blue", aes(y = predictions), lwd = 2, alpha = 0.5) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(x), ylim = range(y))
-  # })
-  
-  
   output$plot_beta0 <- renderPlotly({
     p0 <- ggplot(d(), aes(x = x, y = beta0)) +
       geom_line(col = "#A3A500", lwd = 2) +
@@ -107,6 +85,7 @@ function(input, output, session) {
         "x: {round(d()$x, 1)} <br><br>beta<sub>0:{round(d()$beta0,1)}"
       ))
   })
+  
   output$plot_beta1 <- renderPlotly({
     ggplot(d(), aes(x = x, y = y1)) +
       geom_line(aes(x = x, y = y_dashed1),
@@ -125,6 +104,7 @@ function(input, output, session) {
     p1$x$data[[1]]$hoverinfo <- "none"
     p1
   })
+  
   output$plot_beta2 <- renderPlotly({
     ggplot(d(), aes(x = x, y = y2)) +
       geom_line(aes(x = x, y = y_dashed2),
@@ -144,6 +124,7 @@ function(input, output, session) {
     p2$x$data[[1]]$hoverinfo <- "none"
     p2
   })
+  
   output$plot_beta3 <- renderPlotly({
     ggplot(d(), aes(x = x, y = y3)) +
       geom_line(aes(x = x, y = y_dashed3),
@@ -164,58 +145,6 @@ function(input, output, session) {
     p3
   })
   
-  # output$plot_split2 <- renderPlot({
-  #   d <- dataset2[dataset2$epoch == as.numeric(input$i2),]
-  #
-  #   ggplot(d, aes(x = x, y = beta0)) +
-  #     geom_line(col = 1, lwd = 2) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(x), ylim = range(dataset2$beta0)) +
-  #     labs(title = glue::glue("Intercept: {round(d()$beta0[1], 2)}"),
-  #          y = expression(beta[0])) -> p0
-  #
-  #   ggplot(d, aes(x = x, y = y1)) +
-  #     geom_line(col = 2, lwd = 2) +
-  #     geom_line(aes(x = x, y = y_dashed1), color = "gray", lty = 2) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(x), ylim = range(dataset2$y_dashed1)) +
-  #     labs(title = "Hidden Layer 1",
-  #          y = expression(A[11])) -> p1
-  #
-  #   ggplot(d, aes(x = x, y = y2)) +
-  #     geom_line(col = 3, lwd = 2) +
-  #     geom_line(aes(x = x, y = y_dashed2), color = "gray", lty = 2) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(x), ylim = range(dataset2$y_dashed2)) +
-  #     labs(title = "Hidden Layer 1",
-  #          y = expression(A[12])) -> p2
-  #
-  #   ggplot(d, aes(x = x, y = y3)) +
-  #     geom_line(col = 3, lwd = 2) +
-  #     geom_line(aes(x = x, y = y_dashed3), color = "gray", lty = 2) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(x), ylim = range(dataset2$y_dashed3)) +
-  #     labs(title = "Hidden Layer 1",
-  #          y = expression(A[13])) -> p3
-  #
-  #   ggplot(d, aes(x = y1, y = y21)) +
-  #     geom_line(col = 4, lwd = 2) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(dataset2$y1), ylim = range(dataset2$y21)) +
-  #     labs(title = glue::glue("Hidden Layer 2\n A1 Activation weight: {round(d()$beta1[1], 2)}"),
-  #          y = expression(beta[1]*A[21])) -> p4
-  #
-  #   ggplot(d, aes(x = y2, y = y22)) +
-  #     geom_line(col = 4, lwd = 2) +
-  #     theme_minimal() +
-  #     coord_cartesian(xlim = range(dataset2$y2), ylim = range(dataset2$y22)) +
-  #     labs(title = glue::glue("Hidden Layer 2\nA2 Activation weight: {round(d()$beta2[1], 2)}"),
-  #          y = expression(beta[2]*A[22])) -> p5
-  #
-  #
-  #   wrap_plots(p1, p2, p3, p0, p4, p5, ncol = 5)
-  # })
-  
   # Define the animation
   i <- reactiveVal(1)
   interval <- reactiveTimer(50)
@@ -231,22 +160,7 @@ function(input, output, session) {
       i(i() + 10)
     }
   })
-  
-  # Define the animation
-  # i2 <- reactiveVal(1)
-  # interval2 <- reactiveTimer(50)
-  #
-  # observeEvent(input$play2, {
-  #   i2(1)
-  #   interval2()
-  # })
-  #
-  # observeEvent(interval2(), {
-  #   if (input$play2 %% 2 && i2() <= 500) {
-  #     updateSliderInput(session, "i2", value = i2())
-  #     i2(i2() + 10)
-  #   }
-  # })
+
   
   
 }
