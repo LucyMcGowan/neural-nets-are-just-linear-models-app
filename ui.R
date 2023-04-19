@@ -2,9 +2,7 @@ dashboardPage(
   dashboardHeader(title = "Neural Networks"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Single Layer Network", tabName = "single_layer", icon = icon("dashboard"))#,
-      #menuItem("Two Layer Network", tabName = "two_layers", icon = icon("th")
-      #)
+      menuItem("Single Layer Network", tabName = "single_layer", icon = icon("dashboard"))
     )),
   dashboardBody(
     includeCSS("www/custom.css"),
@@ -46,25 +44,7 @@ dashboardPage(
                      )
               )
               
-      )#,
-      # tabItem(tabName = "two_layers",
-      #         h2("Two Hidden Layers Network"),
-      #         column(width = 4,
-      #                fluidRow(
-      #                  box(width = 12, title = "Diagram of Neural Network", grVizOutput("diag2")),
-      #                  withMathJax(),
-      #                  box(width = 12, title = "Equation", uiOutput("eq2"))
-      #                )
-      #         ),
-      #         column(width = 8,
-      #                fluidRow(
-      #                  box(width = 12, plotOutput("plot2")),
-      #                  box(width = 12, sliderInput("i2", "Iteration:", min = 1, max = 500, value = 1),
-      #                      actionButton("play2", "Play")),
-      #                  box(width = 12, plotOutput("plot_split2"))
-      #                )
-      #          )
-      #)
+      )
     )
   ),
   skin = "green"
