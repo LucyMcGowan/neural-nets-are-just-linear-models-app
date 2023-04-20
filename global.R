@@ -1,31 +1,39 @@
-library(patchwork)
-library(DiagrammeR)
+library(visNetwork)
 library(tidyverse)
 library(shiny)
 library(shinydashboard)
 library(plotly)
+library(glue)
+library(igraph)
+library(rintrojs)
 
 load("dataset.rds")
-load("dataset2.rds")
 
-graph <- create_graph()
+nodes <- data.frame(id = 1:5, 
+                    label = c("x", "A1", "A2", "A3", "y"))
 
-# add nodes
-graph %>%
-  add_node(label = "x") %>%
-  add_node(label = "A3") %>%
-  add_node(label = "A2") %>%
-  add_node(label = "A1") %>%
-  add_node(label = "y") %>%
-  set_node_position(node = 1, x = 1, y = 2) %>%
-  set_node_position(node = 2, x = 2, y = 1) %>%
-  set_node_position(node = 3, x = 2, y = 2) %>%
-  set_node_position(node = 4, x = 2, y = 3) %>%
-  set_node_position(node = 5, x = 3, y = 2) %>%
-  
-  add_edge(1, 2) %>%
-  add_edge(1, 3) %>%
-  add_edge(1, 4) %>%
-  add_edge(2, 5) %>%
-  add_edge(3, 5) %>%
-  add_edge(4, 5) -> graph
+edges <- data.frame(from = c(1, 1, 1, 2, 3, 4),
+                    to = c(2, 3, 4, 5, 5, 5))
+coords <- matrix(c(1, 2, 
+                   2, 0, 
+                   2, 2, 
+                   2, 4, 
+                   3, 2), ncol = 2, byrow = TRUE)
+
+fade_color <- function(color, i, selected) {
+  if (i == 0) {
+    color
+  } else if (i == selected) {
+    color
+  } else {
+    "lightgrey"
+  }
+}
+
+bold_line <- function(i, selected) {
+  if (i == selected) {
+    5
+  } else {
+    2
+  }
+}

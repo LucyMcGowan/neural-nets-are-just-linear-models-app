@@ -1,0 +1,69 @@
+
+
+.content-wrapper {
+  background-color: #f7f7f7; /* Replace with your desired background color */
+}
+    
+/* Change the font family and text color */
+body, .main-header, .main-sidebar, .sidebar-menu, .content-wrapper, h1, h2, h3, h4, h5, h6, p, a {
+  font-family: 'Roboto', sans-serif;
+  color: #333333;
+}
+
+h1 {
+  font-weight: 200;
+  background-color: #4b4e6d; 
+  color: #fff; 
+  padding: 50px; 
+  margin-top: -20px;   
+  margin-bottom: -20px; 
+  margin-left: -20px; 
+  margin-right: -20px; 
+  margin-bottom: 50px;
+}
+
+h3 {
+  font-weight: 400;
+}
+h4 {
+  font-weight: 100;
+}
+/* Change the background color of the dashboard */
+body {
+  background-color: #f7f7f7;
+  font-weight: 200; 
+}
+
+.content-wrapper {
+  overflow-y: auto !important;
+}
+  
+.footer {
+  margin-bottom: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  color: #f7f7f7;
+  background-color: #4b4e6d;
+  z-index: 1000;
+  font-size: 20px;
+}
+
+.box {
+  background-color: #f7f7f7;
+  border: 0px;
+  box-shadow: none;
+}
+
+.box.box-warning {
+  background-color: #333;
+  box-shadow: none;
+}
+
+.box.box-info {
+  box-shadow: 1px 1px 1px 1px #333;
+}
+
+.btn-default {
+  background-color: #f1c400; 
+  font-size: 16px; 
+}
